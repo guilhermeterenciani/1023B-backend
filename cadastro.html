@@ -30,8 +30,14 @@
                         'Content-Type': 'application/json'
                     },
                     method: "POST",
-                    body: objEstudante
+                    body: JSON.stringify(objEstudante)
                 })
+                if(resposta.status===404){
+                    alert("Estudante Não foi excluído")
+                }
+                if(resposta.status===200){
+                    alert("Estudante Excluido com sucesso")
+                }
             }catch(erro){
                 console.log(erro)
                 alert("Deu algo errado na requisição do post!")
