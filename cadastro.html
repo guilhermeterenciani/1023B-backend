@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro Estudante</title>
 </head>
+
 <body>
     <form onsubmit="event.preventDefault();trataForm()">
         <input type="text" id="id" name="id" placeholder="Id">
@@ -12,9 +14,33 @@
         <input type="submit" value="Enviar">
     </form>
     <script>
-        function trataForm(){
-            alert("Cliquei no botão de enviar")
+        async function trataForm() {
+            const idInput = document.getElementById("id")
+            const idNome = document.getElementById("nome")
+            const id = idInput.value
+            const nome = idNome.value
+
+            const objEstudante = {
+                id,
+                nome
+            }
+            try {
+                const resposta = await fetch("http://localhost:8001/estudantes", {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    method: "POST",
+                    body: objEstudante
+                })
+            }catch(erro){
+                console.log(erro)
+                alert("Deu algo errado na requisição do post!")
+            }
+            
+
+
         }
     </script>
 </body>
+
 </html>
