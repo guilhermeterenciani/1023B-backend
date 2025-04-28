@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro Estudante</title>
+</head>
+<body>
+    <form onsubmit="event.preventDefault();trataForm()">
+        <input type="text" id="id" name="id" placeholder="Id">
+        <input type="text" name="nome" id="nome" placeholder="Nome">
+        <input type="submit" value="Enviar">
+    </form>
+    <script>
+        function trataForm(){
+            alert("Cliquei no botão de enviar")
+        }
+    </script>
+</body>
+</html>
