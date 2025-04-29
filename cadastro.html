@@ -35,12 +35,17 @@
                 if(resposta.status===404){
                     alert("Estudante Não foi excluído")
                 }
+                if(resposta.status===400){
+                    const dados = await resposta.json()
+                    alert(`Deu erro do lado do servidor\n" ${dados.mensagem}`)
+                }
                 if(resposta.status===200){
-                    alert("Estudante Excluido com sucesso")
+                    alert("Estudante cadastrado com sucesso")
                 }
             }catch(erro){
                 console.log(erro)
-                alert("Deu algo errado na requisição do post!")
+                alert("Deu algo errado na requisição do post! \n"+ 
+                "Você ligou o BACKEND com NPM RUN dev?")
             }
             
 
