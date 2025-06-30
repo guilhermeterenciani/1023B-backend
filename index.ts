@@ -1,6 +1,7 @@
 import mysql, { Connection, ConnectionOptions , QueryError } from 'mysql2/promise';
 import fastify, { FastifyReply, FastifyRequest } from 'fastify'
 import cors from '@fastify/cors'
+import { console } from 'inspector';
 
 const app = fastify()
 app.register(cors)
@@ -37,19 +38,22 @@ app.get("/estudantes", async (request: FastifyRequest, reply: FastifyReply) => {
         }
     }
 })
-app.post("/estudantes", async (request: FastifyRequest, reply: FastifyReply) => {
-    const {id,nome} = request.body as any
+app.post("/produtos", async (request: FastifyRequest, reply: FastifyReply) => {
+    const {id,nome,preco,categoria} = request.body as any
     try {
         const conn = await mysql.createConnection({
             host: "localhost",
             user: 'root',
             password: "",
-            database: 'banco1023b',
+            database: 'produtobanco',
             port: 3306
         });
-        const resultado = await conn.query("INSERT INTO estudantes (id,nome) VALUES (?,?)",[id,nome])
+        const resultado = 
+        await conn.query("INSERT INTO produtos (id,nome,preco,categoria) VALUES (?,?,?,?)",
+                                                                    [id,nome,preco,categoria])
         const [dados,estruturaTabela] = resultado
-        reply.status(200).send(dados)
+        console.log(dados)
+        reply.status(200).send({id,nome,preco,categoria})
         
     } catch (erro:any) {
         switch (erro.code) {
@@ -76,7 +80,7 @@ app.post("/estudantes", async (request: FastifyRequest, reply: FastifyReply) => 
         }
     }
 })
-app.listen({ port: 8001 }, (erro, endereco) => {
+app.listen({ port: 8000 }, (erro, endereco) => {
     if (erro) {
         console.log("ERRO: Fastify não iniciou")
     }
